@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Apartment-rental-app/static/css/main.52a787f6.css",
+    "main.js": "/Apartment-rental-app/static/js/main.a48a074f.js",
+    "static/js/453.8ab44547.chunk.js": "/Apartment-rental-app/static/js/453.8ab44547.chunk.js",
+    "index.html": "/Apartment-rental-app/index.html",
+    "main.52a787f6.css.map": "/Apartment-rental-app/static/css/main.52a787f6.css.map",
+    "main.a48a074f.js.map": "/Apartment-rental-app/static/js/main.a48a074f.js.map",
+    "453.8ab44547.chunk.js.map": "/Apartment-rental-app/static/js/453.8ab44547.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.52a787f6.css",
+    "static/js/main.a48a074f.js"
+  ]
+}
