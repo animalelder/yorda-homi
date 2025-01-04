@@ -5,7 +5,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Dashboard from "./components/Dashbord";
 import Navbar from "./components/Navbar";
-import CreateProfile from "./components/Createprofile";
+import CreateProfile from "./components/CreateProfile";
 import Profile from "./components/Profile";
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
