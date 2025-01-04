@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Routes,Navigate } from "react-router-do
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Dashboard from "./components/Dashbord";
-
+import Navbar from "./components/Navbar";
 
 
 function App() {
@@ -22,7 +22,8 @@ function App() {
   return (
     <Router>
       <div className="App">
-        
+      <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+
         
         <Routes>
           <Route path="/" element={isLoggedIn ? <Navigate to="/dashboard" /> : <Navigate to="/login" />} />
