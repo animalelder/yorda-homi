@@ -5,8 +5,8 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Dashboard from "./components/Dashbord";
 import Navbar from "./components/Navbar";
-
-
+import CreateProfile from "./components/Createprofile";
+import Profile from "./components/Profile";
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -30,8 +30,14 @@ function App() {
           <Route path="/register" element={<Register setIsLoggedIn={setIsLoggedIn} />} />
           <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
           <Route path="/dashboard" element={isLoggedIn ? <Dashboard /> : <Navigate to="/login" />} />
+          <Route path="/profile" element={<Profile userData={userData} />} />
+
           
-          
+          <Route
+                 path="/create-profile"
+                element={<CreateProfile setUserData={setUserData} />}
+                 />
+
            
         </Routes>
       </div>
