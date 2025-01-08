@@ -1,10 +1,10 @@
- import React, { useState, useRef } from "react";
- import { useNavigate } from "react-router-dom";
+import React, { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
- const mockUsers = [
-   { email: "user1@example.com", password: "1234" },
-  { email: "user2@example.com", password: "4567" },
- ];
+const mockUsers = [
+  { email: "user1@example.com", password: "1234", role: "tenant" },
+  { email: "user2@example.com", password: "4567", role: "landlord" },
+];
 
 export default function Login({ setIsLoggedIn, setUserRole }) {
   const [email, setEmail] = useState("");
@@ -14,19 +14,29 @@ export default function Login({ setIsLoggedIn, setUserRole }) {
   const emailRef = useRef();
   const navigate = useNavigate();
 
-  
-
   const handleLogin = (e) => {
     e.preventDefault();
-    const user = mockUsers.find((u) => u.email === email && u.password === password);
-  
-    if (user) {
-      setIsLoggedIn(true);
-      setUserRole(user.role); // Set user role here
-      navigate("/dashboard");
-    } else {
-      setMessage("Invalid email or password");
-    }
+    setLoading(true);
+
+    setTimeout(() => {
+      const user = mockUsers.find((u) => u.email === email && u.password === password);
+
+      if (user) {
+        if (!user.role) {
+          setMessage("Error: User role not defined.");
+          setLoading(false);
+          return;
+        }
+        setIsLoggedIn(true);
+        setUserRole(user.role);
+        setMessage("Login Successful!");
+        setTimeout(() => navigate("/dashboard"), 1000);
+      } else {
+        setMessage("Invalid email or password");
+        emailRef.current.focus();
+      }
+      setLoading(false);
+    }, 1000);
   };
 
   return (
