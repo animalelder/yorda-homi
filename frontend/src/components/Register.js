@@ -1,40 +1,37 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function Register({ setIsLoggedIn }) {
+export default function Register({ setIsLoggedIn, setUserRole }) {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
     confirmPassword: "",
+    role: "tenant", // Default role
   });
 
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
-  // Handle Form Input Changes
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Handle Form Submission
   const handleRegister = (e) => {
     e.preventDefault();
 
-    // Validate Passwords Match
     if (formData.password !== formData.confirmPassword) {
       setMessage("❌ Passwords do not match!");
       return;
     }
 
-    // Successful Registration
     setMessage("✅ Registration Successful!");
     setIsLoggedIn(true);
+    setUserRole(formData.role); // Set the role globally
 
-    // Clear the form after successful registration
     setTimeout(() => {
       setMessage("");
-      navigate("/create-profile"); // Redirect to Create Profile page
-    }, 2000); 
+      navigate("/create-profile", { state: { role: formData.role } });
+    }, 2000);
   };
 
   return (
@@ -72,7 +69,22 @@ export default function Register({ setIsLoggedIn }) {
           required
         />
 
-        {message && <p className={`mt-2 ${message.includes("❌") ? "text-red-600" : "text-green-600"}`}>{message}</p>}
+        <label className="block mb-2 text-sm font-medium">Role</label>
+        <select
+          name="role"
+          className="block w-full p-2 border border-gray-300 rounded mb-4"
+          value={formData.role}
+          onChange={handleChange}
+        >
+          <option value="tenant">Tenant</option>
+          <option value="landlord">Landlord</option>
+        </select>
+
+        {message && (
+          <p className={`mt-2 ${message.includes("❌") ? "text-red-600" : "text-green-600"}`}>
+            {message}
+          </p>
+        )}
 
         <button
           type="submit"

@@ -1,32 +1,31 @@
-import React, { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+ import React, { useState, useRef } from "react";
+ import { useNavigate } from "react-router-dom";
 
-const mockUsers = [
-  { email: "user1@example.com", password: "1234" },
+ const mockUsers = [
+   { email: "user1@example.com", password: "1234" },
   { email: "user2@example.com", password: "4567" },
-];
+ ];
 
-export default function Login({ setIsLoggedIn }) {
+export default function Login({ setIsLoggedIn, setUserRole }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
   const emailRef = useRef();
   const navigate = useNavigate();
+
+  
 
   const handleLogin = (e) => {
     e.preventDefault();
     const user = mockUsers.find((u) => u.email === email && u.password === password);
-
+  
     if (user) {
       setIsLoggedIn(true);
-      setMessage("Login Successful!");
-      setTimeout(() => {
-        setMessage("");
-        navigate("/dashboard");
-      }, 2000);
+      setUserRole(user.role); // Set user role here
+      navigate("/dashboard");
     } else {
       setMessage("Invalid email or password");
-      emailRef.current.focus(); // Focus back to the email field on error
     }
   };
 
@@ -63,8 +62,9 @@ export default function Login({ setIsLoggedIn }) {
         <button
           type="submit"
           className="w-full p-2 mt-4 bg-green-600 text-white rounded hover:bg-green-700"
+          disabled={loading}
         >
-          Login
+          {loading ? "Logging in..." : "Login"}
         </button>
       </form>
     </div>

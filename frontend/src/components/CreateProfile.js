@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function CreateProfile({ setUserData }) {
+export default function CreateProfile({ setUserData, userRole }) {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -9,6 +9,9 @@ export default function CreateProfile({ setUserData }) {
     phone: "",
     bio: "",
     profilePictureUrl: "",
+    // Additional fields for tenants or landlords
+    //roommatePreferences: "",
+    //propertyDetails: "",
   });
 
   const navigate = useNavigate();
@@ -20,7 +23,8 @@ export default function CreateProfile({ setUserData }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     setUserData(formData); // Save to Global State
-    navigate("/profile");  // Redirect to Profile
+    const redirectPath = userRole === "tenant" ? "/tenant-dashboard" : "/landlord-dashboard";
+    navigate(redirectPath); // Redirect based on user role
   };
 
   return (
@@ -78,6 +82,32 @@ export default function CreateProfile({ setUserData }) {
           value={formData.bio}
           onChange={handleChange}
         />
+
+        {/* {userRole === "tenant" && (
+          <>
+            <label className="block mb-2 text-sm font-medium">Roommate Preferences</label>
+            <textarea
+              name="roommatePreferences"
+              className="block w-full p-2 border border-gray-300 rounded mb-4"
+              rows="3"
+              value={formData.roommatePreferences}
+              onChange={handleChange}
+            />
+          </>
+        )} */}
+
+        {/* {userRole === "landlord" && (
+          <>
+            <label className="block mb-2 text-sm font-medium">Property Details</label>
+            <textarea
+              name="propertyDetails"
+              className="block w-full p-2 border border-gray-300 rounded mb-4"
+              rows="3"
+              value={formData.propertyDetails}
+              onChange={handleChange}
+            />
+          </>
+        )} */}
 
         <button
           type="submit"
