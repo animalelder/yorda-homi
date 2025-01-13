@@ -1,8 +1,13 @@
+
+
+
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Register({ setIsLoggedIn, setUserRole }) {
   const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -10,13 +15,14 @@ export default function Register({ setIsLoggedIn, setUserRole }) {
   });
 
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
 
     if (formData.password !== formData.confirmPassword) {
@@ -24,20 +30,70 @@ export default function Register({ setIsLoggedIn, setUserRole }) {
       return;
     }
 
-    setMessage("✅ Registration Successful!");
-    setIsLoggedIn(true);
-    setUserRole(formData.role); // Set the role globally
+    setLoading(true);
 
-    setTimeout(() => {
-      setMessage("");
-      navigate("/create-profile", { state: { role: formData.role } });
-    }, 2000);
+    try {
+      const response = await fetch("http://localhost:8001/api/users/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          password: formData.password,
+          role: formData.role,
+        }),
+      });
+
+  
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Registration failed.");
+      }
+
+      setMessage("✅ Registration Successful!");
+      setIsLoggedIn(true);
+      setUserRole(formData.role);
+
+      setTimeout(() => {
+        setMessage("");
+        navigate("/create-profile", { state: { role: formData.role } });
+      }, 2000);
+    } catch (error) {
+      setMessage(`❌ ${error.message}`);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <form className="bg-white p-8 shadow-lg rounded-md w-96" onSubmit={handleRegister}>
         <h2 className="text-2xl font-bold mb-6">Register</h2>
+
+        <label className="block mb-2 text-sm font-medium">First Name</label>
+        <input
+          type="text"
+          name="firstName"
+          className="block w-full p-2 border border-gray-300 rounded mb-4"
+          value={formData.firstName}
+          onChange={handleChange}
+          required
+        />
+
+        <label className="block mb-2 text-sm font-medium">Last Name</label>
+        <input
+          type="text"
+          name="lastName"
+          className="block w-full p-2 border border-gray-300 rounded mb-4"
+          value={formData.lastName}
+          onChange={handleChange}
+          required
+        />
 
         <label className="block mb-2 text-sm font-medium">Email</label>
         <input
@@ -89,8 +145,9 @@ export default function Register({ setIsLoggedIn, setUserRole }) {
         <button
           type="submit"
           className="w-full p-2 mt-4 bg-green-600 text-white rounded hover:bg-green-700"
+          disabled={loading}
         >
-          Register
+          {loading ? "Registering..." : "Register"}
         </button>
       </form>
     </div>

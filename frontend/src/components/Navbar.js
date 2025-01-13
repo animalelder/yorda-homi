@@ -1,22 +1,15 @@
 
 
 
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHouse } from "@fortawesome/free-solid-svg-icons";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-export default function Navbar({ isLoggedIn, setIsLoggedIn }) {
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-    navigate("/login");
-  };
-
+export default function Navbar({ isLoggedIn, onLogout }) {
   return (
     <nav className="bg-white border-b-4 border-green-600 shadow-lg p-4 text-gray-700">
       <div className="container mx-auto flex justify-between items-center">
-        
         {/* Logo Section */}
         <div className="flex items-center">
           <FontAwesomeIcon icon={faHouse} className="text-green-600 text-3xl mr-2" />
@@ -40,7 +33,7 @@ export default function Navbar({ isLoggedIn, setIsLoggedIn }) {
                 Dashboard
               </Link>
               <button
-                onClick={handleLogout}
+                onClick={onLogout}
                 className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
               >
                 Logout
@@ -67,4 +60,3 @@ export default function Navbar({ isLoggedIn, setIsLoggedIn }) {
     </nav>
   );
 }
-
