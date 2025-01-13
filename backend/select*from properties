@@ -1,0 +1,9 @@
+ id |    username    |         email         |  password_hash  |   role   |         created_at         |         updated_at         
+----+----------------+-----------------------+-----------------+----------+----------------------------+----------------------------
+  1 | tenant_user1   | tenant1@example.com   | hashedpassword1 | tenant   | 2024-12-17 05:52:49.095131 | 2024-12-17 05:52:49.095131
+  2 | landlord_user1 | landlord1@example.com | hashedpassword2 | landlord | 2024-12-17 05:52:49.095131 | 2024-12-17 05:52:49.095131
+  3 | tenant_user2   | tenant2@example.com   | hashedpassword3 | tenant   | 2024-12-17 05:52:49.095131 | 2024-12-17 05:52:49.095131
+  4 | landlord_user2 | landlord2@example.com | hashedpassword4 | landlord | 2024-12-17 05:52:49.095131 | 2024-12-17 05:52:49.095131
+  5 | tenant_user3   | tenant3@example.com   | hashedpassword5 | tenant   | 2024-12-17 05:52:49.095131 | 2024-12-17 05:52:49.095131
+(5 rows)
+
