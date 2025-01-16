@@ -5,7 +5,7 @@ import PropertySearch from "./PropertySearch";
 import PropertyListing from "./PropertyListing";
 import axios from "axios";
 
-export default function Dashboard({ userRole }) {
+export default function Dashbord({ userRole }) {
   const [properties, setProperties] = useState([]);
 
   useEffect(() => {
