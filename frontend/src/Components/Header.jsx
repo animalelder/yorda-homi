@@ -61,7 +61,7 @@ const Header = () => {
 
       {/* Featured Image */}
       <div className='w-full flex justify-center py-8'>
-        <img src={featured} alt="Featured" className='w-11/12 max-w-5xl rounded-lg shadow-lg' />
+        <img src={featured} alt="Featured" className='w-11/12 max-w-5xl rounded-lg ' />
       </div>
     </div>
   );
