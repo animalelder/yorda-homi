@@ -1,83 +1,45 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
-export default function EditProfile({ userData, setUserData }) {
-  const [formData, setFormData] = useState({ ...userData });
-  const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
 
-  const handleSubmit = (e) => {
+
+import { useState } from "react";
+import axios from "axios";
+
+const EditProfile = ({ userId }) => {
+  const [bio, setBio] = useState("");
+  const [photo, setPhoto] = useState(null);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setUserData(formData); // Save changes globally
-    navigate("/profile");  // Redirect to Profile
+    const formData = new FormData();
+    formData.append("bio", bio);
+    if (photo) formData.append("photo", photo);
+
+    try {
+      const response = await axios.put(`/api/profiles/${userId}`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      alert("Profile updated successfully!");
+    } catch (error) {
+      console.error("Error updating profile:", error);
+    }
   };
 
   return (
-    <div className="min-h-screen p-8 bg-gray-100">
-      <form
-        className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6"
-        onSubmit={handleSubmit}
-      >
-        <h1 className="text-3xl font-bold mb-6">Edit Profile</h1>
-
-        <label className="block mb-2 text-sm font-medium">First Name</label>
-        <input
-          type="text"
-          name="firstName"
-          className="block w-full p-2 border border-gray-300 rounded mb-4"
-          value={formData.firstName}
-          onChange={handleChange}
-          required
-        />
-
-        <label className="block mb-2 text-sm font-medium">Last Name</label>
-        <input
-          type="text"
-          name="lastName"
-          className="block w-full p-2 border border-gray-300 rounded mb-4"
-          value={formData.lastName}
-          onChange={handleChange}
-          required
-        />
-
-        <label className="block mb-2 text-sm font-medium">Email</label>
-        <input
-          type="email"
-          name="email"
-          className="block w-full p-2 border border-gray-300 rounded mb-4"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
-
-        <label className="block mb-2 text-sm font-medium">Phone</label>
-        <input
-          type="tel"
-          name="phone"
-          className="block w-full p-2 border border-gray-300 rounded mb-4"
-          value={formData.phone}
-          onChange={handleChange}
-        />
-
-        <label className="block mb-2 text-sm font-medium">Bio</label>
-        <textarea
-          name="bio"
-          className="block w-full p-2 border border-gray-300 rounded mb-4"
-          rows="4"
-          value={formData.bio}
-          onChange={handleChange}
-        />
-
-        <button
-          type="submit"
-          className="w-full p-2 bg-green-600 text-white rounded hover:bg-green-700"
-        >
-          Save Profile
-        </button>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <textarea
+        value={bio}
+        onChange={(e) => setBio(e.target.value)}
+        placeholder="Update your bio"
+      />
+      <input
+        type="file"
+        accept="image/*"
+        onChange={(e) => setPhoto(e.target.files[0])}
+      />
+      <button type="submit">Save Changes</button>
+    </form>
   );
-}
+};
+
+export default EditProfile;

@@ -1,41 +1,54 @@
 
 
-import React from "react";
-import { useNavigate } from "react-router-dom";
 
-export default function Profile({ userData }) {
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
+
+const Profile = () => {
+  const { userId } = useParams(); // Get userId from route
   const navigate = useNavigate();
+  const [profile, setProfile] = useState(null);
 
-  const {
-    firstName = "N/A",
-    lastName = "N/A",
-    email = "Not Provided",
-    phone = "Not Provided",
-    bio = "No bio available",
-    profilePictureUrl = "https://via.placeholder.com/150",
-  } = userData;
+  useEffect(() => {
+    if (!userId) {
+      console.error("userId is undefined");
+      return;
+    }
+
+    // Fetch profile data
+    axios.get(`/api/profiles/${userId}`)
+      .then((response) => {
+        setProfile(response.data); // Update the profile state with the response data
+      })
+      .catch((error) => {
+        console.error("Error fetching profile:", error);
+      });
+  }, [userId]);
+
+  if (!profile) return <p>Loading...</p>;
 
   return (
     <div className="min-h-screen p-8 bg-gray-100">
       <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6">
         <div className="flex items-center space-x-4">
           <img
-            src={userData.profilePictureUrl || "https://via.placeholder.com/150"}
+            src={profile.photo || "https://via.placeholder.com/150"}
             alt="Profile"
             className="w-32 h-32 rounded-full object-cover"
           />
           <div>
             <h1 className="text-3xl font-bold">
-              {userData.firstName} {userData.lastName}
+              {profile.firstName} {profile.lastName}
             </h1>
-            <p className="text-gray-600">Email: {userData.email}</p>
-            <p className="text-gray-600">Phone: {userData.phone}</p>
+            <p className="text-gray-600">Email: {profile.email}</p>
+            <p className="text-gray-600">Phone: {profile.phone}</p>
           </div>
         </div>
 
         <div className="mt-6">
           <h2 className="text-xl font-semibold">About Me</h2>
-          <p className="text-gray-700">{userData.bio}</p>
+          <p className="text-gray-700">{profile.bio || "No bio available"}</p>
         </div>
 
         <button
@@ -47,4 +60,6 @@ export default function Profile({ userData }) {
       </div>
     </div>
   );
-}
+};
+
+export default Profile;
