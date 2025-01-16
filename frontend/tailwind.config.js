@@ -9,6 +9,7 @@ module.exports = {
         primary: '#31ba96',
         buttonRed: '#ff5757', 
         primaryLight: '#ecfbf9', 
+        primaryBlue: '#278eff', 
       },
     },
   },

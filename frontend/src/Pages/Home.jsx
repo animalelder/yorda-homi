@@ -1,6 +1,7 @@
 import React from 'react'
 import Header from '../Components/Header'
 import FindHome from '../Components/FindHome'
+import HomiMessage from '../Components/HomiMessage'
 
 
 const Home = () => {
@@ -8,6 +9,7 @@ const Home = () => {
     <div>
        <Header/>
        <FindHome/>
+       <HomiMessage/>
     </div>
   )
 }
