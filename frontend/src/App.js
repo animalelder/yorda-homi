@@ -52,20 +52,13 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHouse } from '@fortawesome/free-solid-svg-icons';
-import './App.css';
+import Home from '../src/Pages/Home'
+
 
 function App() {
   return (
-    <div className="App">
-      {/* Icon Container for Top-Left Position */}
-      <div className="icon-container">
-        <FontAwesomeIcon icon={faHouse} style={{ marginRight: '10px', color: 'Orange' }} />
-        <span>Homi</span> {/* Text next to the icon */}
-      </div>
-      <header className="App-header">
-        <h1>Welcome to Homi</h1>
-        
-      </header>
+    <div className="">
+    <Home/>
     </div>
   );
 }
