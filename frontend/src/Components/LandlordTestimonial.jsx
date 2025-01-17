@@ -5,7 +5,7 @@ import Nora from '../Assets/Nora.png';
 
 const LandlordTestimonial = () => {
   return (
-    <div className="py-10 px-4 sm:px-6 lg:px-20">
+    <div className="py-10 px-4 sm:px-6 lg:px-20 mb-[170px]">
       <div className="text-center mb-28">
         <h3 className="text-2xl  sm:text-3xl font-semibold text-gray-800">
           What people say about us
