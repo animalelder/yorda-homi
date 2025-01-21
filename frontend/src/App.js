@@ -52,13 +52,18 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHouse } from '@fortawesome/free-solid-svg-icons';
+import { Routes,Route } from 'react-router-dom';
 import Home from '../src/Pages/Home'
+import Profile from './Pages/Profile';
 
 
 function App() {
   return (
     <div className="">
-    <Home/>
+      <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/profile" element={<Profile />} />
+      </Routes>    
     </div>
   );
 }
