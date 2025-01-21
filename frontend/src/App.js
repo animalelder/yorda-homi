@@ -55,6 +55,7 @@ import { faHouse } from '@fortawesome/free-solid-svg-icons';
 import { Routes,Route } from 'react-router-dom';
 import Home from '../src/Pages/Home'
 import Profile from './Pages/Profile';
+import ProfileCreation from './Pages/ProfileCreation';
 
 
 function App() {
@@ -63,6 +64,7 @@ function App() {
       <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/profile" element={<Profile />} />
+      <Route path="/create-profile" element={<ProfileCreation />} />
       </Routes>    
     </div>
   );
