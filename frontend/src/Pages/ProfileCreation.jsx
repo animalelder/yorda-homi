@@ -113,6 +113,7 @@ const ProfileCreation = () => {
                 type="text"
                 name="firstName"
                 placeholder="Enter first name"
+                required
                 value={formData.firstName}
                 onChange={handleChange}
                 className="flex-1 border mb-4 md:mb-0 w-full md:w-1/2 border-gray-300 p-2 rounded-full focus:outline-none focus:ring focus:ring-red-300"
@@ -120,6 +121,7 @@ const ProfileCreation = () => {
               <input
                 type="text"
                 name="lastName"
+                required
                 placeholder="Enter last name"
                 value={formData.lastName}
                 onChange={handleChange}
@@ -136,6 +138,7 @@ const ProfileCreation = () => {
               name="email"
               placeholder="Enter your email"
               value={formData.email}
+              required
               onChange={handleChange}
               className="w-full border border-gray-300 p-2 rounded-full mb-4 focus:outline-none focus:ring focus:ring-red-300"
             />
@@ -148,6 +151,7 @@ const ProfileCreation = () => {
               type="password"
               name="password"
               placeholder="Create a password"
+              required
               value={formData.password}
               onChange={handleChange}
               className="w-full border border-gray-300 p-2 rounded-full mb-2 focus:outline-none focus:ring focus:ring-red-300"
@@ -162,6 +166,7 @@ const ProfileCreation = () => {
               type="password"
               name="confirmPassword"
               placeholder="Confirm password"
+              required
               value={formData.confirmPassword}
               onChange={handleChange}
               className="w-full border border-gray-300 p-2 rounded-full mb-6 focus:outline-none focus:ring focus:ring-red-300"
@@ -187,7 +192,7 @@ const ProfileCreation = () => {
               disabled={loading}
               className={`w-full ${
                 loading ? "bg-gray-400" : "bg-primaryBlue"
-              } text-white font-medium py-2 px-4 rounded-full hover:bg-primary transition`}
+              } text-white font-medium py-2 px-4 rounded-full hover:bg-red-500 transition`}
             >
               {loading ? "Creating Account..." : "Create Account"}
             </button>
@@ -196,7 +201,7 @@ const ProfileCreation = () => {
             {/* Or sign up with */}
             <div className="flex items-center justify-center my-6">
               <hr className="w-[30%] border-gray-300" />
-              <div className="px-4 text-sm">Or sign up with</div>
+              <div className="px-4 text-sm text-gray-400">Or sign up with</div>
               <hr className="w-[30%] border-gray-300" />
             </div>
 
