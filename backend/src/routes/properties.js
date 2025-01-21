@@ -173,7 +173,53 @@ module.exports = (db) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+router.get("/search", async (req, res) => {
+  const { location, minPrice, maxPrice, propertyType, bedroomCount } = req.query;
 
+  // Build dynamic SQL query based on provided filters
+  const conditions = [];
+  const values = [];
+
+  if (location) {
+    conditions.push("location ILIKE $1");
+    values.push(`%${location}%`);
+  }
+  if (minPrice) {
+    conditions.push("price >= $2");
+    values.push(minPrice);
+  }
+  if (maxPrice) {
+    conditions.push("price <= $3");
+    values.push(maxPrice);
+  }
+  if (propertyType) {
+    conditions.push("property_type = $4");
+    values.push(propertyType);
+  }
+  if (bedroomCount) {
+    conditions.push("bedroom_count = $5");
+    values.push(bedroomCount);
+  }
+
+  const whereClause = conditions.length
+    ? `WHERE ${conditions.join(" AND ")}`
+    : "";
+
+  const query = `
+    SELECT * FROM properties
+    ${whereClause}
+    ORDER BY price ASC;
+  `;
+
+  try {
+    const result = await db.query(query, values);
+    res.json(result.rows);
+  } catch (err) {
+    console.error("Error performing search:", err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+  
 
   return router;
 };
