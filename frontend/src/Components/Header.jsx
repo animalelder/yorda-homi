@@ -83,7 +83,7 @@ const Header = () => {
 
               {/* Dropdown Menu */}
               {isDropdownOpen && (
-                <div className="absolute top-full mt-2 left-0 bg-white shadow-lg rounded-md w-40 z-50">
+                <div className="absolute top-full mt-2 right-1 bg-white shadow-lg rounded-md w-40 z-50">
                   <ul className="space-y-2 text-sm text-gray-700">
                     <li className="cursor-pointer block px-4 py-2 hover:bg-primary hover:rounded-full hover:text-white">
                       Rental
