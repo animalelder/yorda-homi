@@ -12,6 +12,7 @@ module.exports = {
         primaryBlue: '#278eff',
         deepBlue: '#004aad',
         deepGreen: '#1aa71a',  
+        skyBlue: '#a9d2ff',
       },
     },
   },

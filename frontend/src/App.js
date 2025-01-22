@@ -56,6 +56,7 @@ import { Routes,Route } from 'react-router-dom';
 import Home from '../src/Pages/Home'
 import Profile from './Pages/Profile';
 import ProfileCreation from './Pages/ProfileCreation';
+import Property from './Pages/Property';
 
 
 function App() {
@@ -65,7 +66,9 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/create-profile" element={<ProfileCreation />} />
-      </Routes>    
+      <Route path="/property" element={<Property />} />
+      </Routes>  
+
     </div>
   );
 }
