@@ -67,6 +67,11 @@ module.exports = function application(ENV) {
   app.use("/api/messages", messages(db));
    // Mount the users router
 
+  app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Uh oh! Something did not work as expected!');
+});
+
   // Debug reset route for development or testing
   if (ENV === "development" || ENV === "test") {
     Promise.all([
