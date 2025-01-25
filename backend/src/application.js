@@ -17,7 +17,8 @@ const db = require("./db");
 const properties = require("./routes/properties");
 const users = require("./routes/users");
 const messages = require("./routes/messages");
-const profiles = require("./routes/profiles");
+
+const tenantProfiles = require("./routes/tenantProfiles");
 
 // Create the public/uploads directory if it doesn't exist
 const uploadsDir = path.join(__dirname, "public/uploads");
@@ -66,7 +67,7 @@ module.exports = function application(ENV) {
   app.use("/api/users", users(db));
   app.use("/api/properties", properties(db, upload)); // Pass Multer to the properties route
   app.use("/api/messages", messages(db));
-  app.use("/api/profiles", profiles);
+  app.use("/api/tenantProfiles", tenantProfiles(db));
    // Mount the users router
 
   // Debug reset route for development or testing
