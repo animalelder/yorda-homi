@@ -17,6 +17,7 @@ const db = require("./db");
 const properties = require("./routes/properties");
 const users = require("./routes/users");
 const messages = require("./routes/messages");
+const profiles = require("./routes/profiles");
 
 // Create the public/uploads directory if it doesn't exist
 const uploadsDir = path.join(__dirname, "public/uploads");
@@ -61,10 +62,11 @@ module.exports = function application(ENV) {
 
   // Serve static files from the public folder
   app.use(express.static(path.join(__dirname, "public")));
-
+  console.log("Initializing users route...");
   app.use("/api/users", users(db));
   app.use("/api/properties", properties(db, upload)); // Pass Multer to the properties route
   app.use("/api/messages", messages(db));
+  app.use("/api/profiles", profiles);
    // Mount the users router
 
   // Debug reset route for development or testing
