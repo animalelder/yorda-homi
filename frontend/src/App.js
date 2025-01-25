@@ -7,7 +7,6 @@ import Dashbord from "./components/Dashbord";
 import Profile from "./components/Profile";
 import EditProfile from "./components/EditProfile";
 import CreateProfile from "./components/CreateProfile";
-import AboutUs from "./components/AboutUs";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -48,10 +47,7 @@ function App() {
   return (
     <Router>
       <Navbar isLoggedIn={isLoggedIn} onLogout={handleLogout} />
-      <Routes>
-        <Route path="/about" element={<AboutUs />} />
-        {/* Other routes */}
-      </Routes>
+      
       <Routes>
         <Route
           path="/"

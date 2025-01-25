@@ -9,13 +9,15 @@ INSERT INTO USERS (FIRSTNAME, LASTNAME, EMAIL, PASSWORD, ROLE) VALUES
 
 
 
-INSERT INTO PROFILES (USER_ID, FIRSTNAME, LASTNAME, PHONE_NUMBER, OCCUPATION, PROFILE_PICTURE_URL, VERIFICATION_STATUS)
+-- Insert updated sample data into PROFILES table
+INSERT INTO PROFILES (USER_ID, FIRSTNAME, LASTNAME, PHONE_NUMBER, OCCUPATION, PROFILE_PICTURE_URL, VERIFICATION_STATUS, BIRTH_DATE)
 VALUES
-(1, 'John', 'Doe', '1234567890', 'STUDENT', 'profile1.jpg', TRUE),
-(2, 'Alice', 'Smith', '9876543210', 'EMPLOYED', 'profile2.jpg', TRUE),
-(3, 'Michael', 'Brown', '5678901234', 'STUDENT', 'profile3.jpg', FALSE),
-(4, 'Rachel', 'Green', '2345678901', 'EMPLOYED', 'profile4.jpg', TRUE),
-(5, 'Chris', 'White', '7654321098', 'STUDENT', 'profile5.jpg', FALSE);
+(1, 'John', 'Doe', '1234567890', 'STUDENT', 'profile1.jpg', TRUE, '2000-01-15'),
+(2, 'Alice', 'Smith', '9876543210', 'EMPLOYED', 'profile2.jpg', TRUE, '1985-06-20'),
+(3, 'Michael', 'Brown', '5678901234', 'STUDENT', 'profile3.jpg', FALSE, '1998-03-10'),
+(4, 'Rachel', 'Green', '2345678901', 'EMPLOYED', 'profile4.jpg', TRUE, '1992-11-05'),
+(5, 'Chris', 'White', '7654321098', 'STUDENT', 'profile5.jpg', FALSE, '2001-07-22');
+
 
 
 

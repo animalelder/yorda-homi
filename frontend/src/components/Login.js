@@ -1,10 +1,6 @@
 import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-
-const mockUsers = [
-  { email: "user1@example.com", password: "1234", role: "tenant" },
-  { email: "user2@example.com", password: "4567", role: "landlord" },
-];
+import axios from "axios";
 
 export default function Login({ setIsLoggedIn, setUserRole }) {
   const [email, setEmail] = useState("");
@@ -14,29 +10,36 @@ export default function Login({ setIsLoggedIn, setUserRole }) {
   const emailRef = useRef();
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
 
-    setTimeout(() => {
-      const user = mockUsers.find((u) => u.email === email && u.password === password);
+    try {
+      // Send login request to the backend
+      const response = await axios.post("/api/users/login", { email, password });
 
-      if (user) {
-        if (!user.role) {
-          setMessage("Error: User role not defined.");
-          setLoading(false);
-          return;
-        }
-        setIsLoggedIn(true);
-        setUserRole(user.role);
-        setMessage("Login Successful!");
-        setTimeout(() => navigate("/dashboard"), 1000);
-      } else {
+      // Extract token and user details
+      const { token, user } = response.data;
+
+      // Save token to localStorage for persistent login
+      localStorage.setItem("authToken", token);
+
+      // Update app state
+      setIsLoggedIn(true);
+      setUserRole(user.role);
+
+      setMessage("Login Successful!");
+      setTimeout(() => navigate("/dashboard"), 1000);
+    } catch (err) {
+      if (err.response && err.response.status === 401) {
         setMessage("Invalid email or password");
-        emailRef.current.focus();
+      } else {
+        setMessage("Something went wrong. Please try again.");
       }
+      emailRef.current.focus();
+    } finally {
       setLoading(false);
-    }, 1000);
+    }
   };
 
   return (

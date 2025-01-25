@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropertyListing from './PropertyListing';
 import PropertySearch from './PropertySearch';
 
-export default function Dashboard({ userRole }) {
+export default function Dashbord({ userRole }) {
   const [properties, setProperties] = useState([]);
 
   // useEffect(() => {
