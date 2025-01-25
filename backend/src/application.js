@@ -17,6 +17,7 @@ const db = require("./db");
 const properties = require("./routes/properties");
 const users = require("./routes/users");
 const messages = require("./routes/messages");
+const landlordProfiles = require("./routes/landlordProfiles");
 
 const tenantProfiles = require("./routes/tenantProfiles");
 
@@ -68,6 +69,7 @@ module.exports = function application(ENV) {
   app.use("/api/properties", properties(db, upload)); // Pass Multer to the properties route
   app.use("/api/messages", messages(db));
   app.use("/api/tenantProfiles", tenantProfiles(db));
+  app.use("/api/landlordProfiles", landlordProfiles(db));
    // Mount the users router
 
   // Debug reset route for development or testing
